@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎁</title>
+    
+    <!-- Tema Natalizio -->
+    <link rel="stylesheet" href="christmas-theme.css">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative; /* Aggiungo posizione relativa */
+        }
+
+        /* Mantieni solo gli stili specifici di questa pagina */
+        .content {
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1s ease;
+            padding: 40px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 2px solid var(--christmas-red);
+            max-width: 90%;
+            width: 700px;
+            position: relative;
+            z-index: 10; /* Assicura che il contenuto sia sopra i fiocchi di neve */
+            overflow: hidden;
+        }
+
+        .content.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .step {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            font-size: 24px;
+            line-height: 1.6;
+            display: none;
+        }
+        
+        .step.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .input-container {
+            margin-top: 30px;
+        }
+        
+        input {
+            padding: 15px 20px;
+            font-size: 18px;
+            border: 2px solid var(--christmas-green);
+            border-radius: 10px;
+            margin-right: 10px;
+            width: 250px;
+            background: var(--snow-white);
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--christmas-red);
+            box-shadow: 0 0 10px rgba(212, 36, 38, 0.2);
+        }
+        
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            background: var(--christmas-red);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Mountains of Christmas', cursive;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        button:hover {
+            background: var(--christmas-green);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .feedback {
+            margin-top: 20px;
+            font-size: 18px;
+            min-height: 27px;
+            color: var(--christmas-green);
+            font-weight: 600;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+        
+        /* Stile specifico per i fiocchi di neve */
+        .snowflake {
+            position: fixed; /* Uso fixed invece di absolute */
+            top: -50px; /* Punto di partenza sopra la viewport */
+            font-size: 20px;
+            color: white;
+            text-shadow: 0 0 5px rgba(255,255,255,0.5);
+            user-select: none;
+            z-index: 1; /* Sotto il contenuto principale */
+            pointer-events: none; /* Non interferisce con gli altri elementi */
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+        
+        .progress {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            font-size: 16px;
+            color: #666;
+        }
+
+        @keyframes sparkle {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .success-emoji {
+            display: inline-block;
+            animation: sparkle 0.5s ease infinite;
+        }
+        
+        #startButton {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px 40px;
+            font-size: 24px;
+            background: #333;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .initial-white-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    z-index: 9999;
+    transition: opacity 1s ease;
+}
+
+body > *:not(.initial-white-screen) {
+    display: none;
+}
+
+body.loaded > *:not(.initial-white-screen) {
+    display: block;
+}
+        
+        #startButton:hover {
+            background: #555;
+            transform: translate(-50%, -50%) scale(1.05);
+        }
+    </style>
+</head>
+<body>
+  <div class="initial-white-screen"></div>
+  <div class="main-content">
+      <button id="startButton">Inizia l'Avventura</button>
+      <div class="progress">Livello: <span id="currentLevel">1</span>/4</div>
+      <div class="content">
+        <!-- Step 1: Indovinello iniziale -->
+        <div class="step" id="step1">
+Ciao Ericuccia
+            <br><br>
+            Per iniziare, risolvi questo indovinello:
+            <br><br>
+            "Sono nelle stelle ma non nel sole,
+            <br>
+            Sono nel cuore ma non nell'amore,
+            <br>
+            Sono nel tempo ma non nelle ore.
+            <br>
+            Cosa sono?"
+            <div class="input-container">
+                <input type="text" id="answer1" placeholder="La tua risposta...">
+                <button onclick="checkAnswer(1)">Verifica</button>
+            </div>
+            <div class="feedback" id="feedback1"></div>
+        </div>
+
+        <!-- Step 2: Calcolo matematico -->
+        <div class="step" id="step2">
+            Ottimo! Ora per il secondo indizio...
+            <br><br>
+            "Se il numero di tasti in un pianoforte dividi per 4,
+            <br>
+            e poi aggiungi l'anno in cui ci siamo conosciuti,
+            <br>
+            otterrai il numero che ti serve per proseguire."
+            <div class="input-container">
+                <input type="number" id="answer2" placeholder="Numero...">
+                <button onclick="checkAnswer(2)">Verifica</button>
+            </div>
+            <div class="feedback" id="feedback2"></div>
+        </div>
+
+        <!-- Step 3: Indizio visivo -->
+        <div class="step" id="step3">
+            Perfetto! Ora guarda attentamente...
+            <br><br>
+            "Il tuo prossimo indizio si nasconde dove
+            <br>
+            ogni mattina la caffeina ti dà il buongiorno,
+            <br>
+            ma cerca sotto, non dentro!"
+            <div class="input-container">
+                <input type="text" id="answer3" placeholder="Dove devi cercare?">
+                <button onclick="checkAnswer(3)">Verifica</button>
+            </div>
+            <div class="feedback" id="feedback3"></div>
+        </div>
+
+        <!-- Step 4: Indizio finale -->
+        <div class="step" id="step4">
+            Ci siamo quasi! Ultimo indovinello:
+            <br><br>
+            "In questo luogo il freddo regna sovrano,
+            <br>
+            ma i tuoi spuntini preferiti trovano riparo.
+            <br>
+            Cerca dietro al gelato alla vaniglia,
+            <br>
+            e il tuo regalo finalmente vedrai!"
+            <div class="input-container">
+                <input type="text" id="answer4" placeholder="Il luogo finale...">
+                <button onclick="checkAnswer(4)">Verifica</button>
+            </div>
+            <div class="feedback" id="feedback4"></div>
+        </div>
+    </div>
+
+    <script>
+
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+        const whiteScreen = document.querySelector('.initial-white-screen');
+        whiteScreen.style.opacity = '0';
+        document.body.classList.add('loaded');
+        
+        setTimeout(() => {
+            whiteScreen.remove();
+        }, 1000);
+    }, 10000);
+});
+        // Funzione per creare un suono natalizio più armonico
+        function playChristmasSound() {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            
+            // Sequenza di note più armoniosa ispirata ai classici natalizi
+            const christmasNotes = [
+                { frequency: 523.25, duration: 0.3 },   // Do
+                { frequency: 587.33, duration: 0.2 },   // Re
+                { frequency: 659.25, duration: 0.4 },   // Mi
+                { frequency: 698.46, duration: 0.3 },   // Fa
+                { frequency: 783.99, duration: 0.3 },   // Sol
+                { frequency: 880.00, duration: 0.2 },   // La
+                { frequency: 987.77, duration: 0.5 }    // Si
+            ];
+
+            // Funzione per creare un suono più ricco
+            function createRichSound(frequency, duration) {
+                const oscillator1 = audioContext.createOscillator();
+                const oscillator2 = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+
+                // Crea due oscillatori leggermente sfasati per un suono più pieno
+                oscillator1.type = 'sine';
+                oscillator2.type = 'triangle';
+                
+                oscillator1.frequency.setValueAtTime(frequency, audioContext.currentTime);
+                oscillator2.frequency.setValueAtTime(frequency * 1.01, audioContext.currentTime); // Leggero detune
+
+                // Nodo di guadagno con inviluppo
+                gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+                gainNode.gain.linearRampToValueAtTime(0.5, audioContext.currentTime + 0.1);
+                gainNode.gain.linearRampToValueAtTime(0.3, audioContext.currentTime + duration);
+                gainNode.gain.setValueAtTime(0, audioContext.currentTime + duration);
+
+                // Connessioni
+                oscillator1.connect(gainNode);
+                oscillator2.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+
+                // Riproduzione
+                oscillator1.start(audioContext.currentTime);
+                oscillator2.start(audioContext.currentTime);
+                oscillator1.stop(audioContext.currentTime + duration);
+                oscillator2.stop(audioContext.currentTime + duration);
+            }
+
+            // Riproduzione sequenziale delle note
+            christmasNotes.forEach((note, index) => {
+                setTimeout(() => {
+                    createRichSound(note.frequency, note.duration);
+                }, index * 300); // Leggero intervallo tra le note
+            });
+
+            // Effetto finale: campane natalizie
+            setTimeout(() => {
+                const finalBell = audioContext.createOscillator();
+                const bellGain = audioContext.createGain();
+
+                finalBell.type = 'sine';
+                finalBell.frequency.setValueAtTime(523.25, audioContext.currentTime); // Do
+                
+                bellGain.gain.setValueAtTime(0.7, audioContext.currentTime);
+                bellGain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 1);
+
+                finalBell.connect(bellGain);
+                bellGain.connect(audioContext.destination);
+
+                finalBell.start();
+                finalBell.stop(audioContext.currentTime + 1);
+            }, christmasNotes.length * 300 + 100);
+        }
+
+        // Funzione per creare fiocchi di neve
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            snowflake.className = 'snowflake';
+            
+            // Posizionamento casuale orizzontale
+            snowflake.style.left = Math.random() * 100 + 'vw';
+            
+            // Durata e velocità variabili
+            const duration = Math.random() * 5 + 3; // 3-8 secondi
+            snowflake.style.animationDuration = duration + 's';
+            
+            // Dimensione casuale
+            const size = Math.random() * 20 + 10; // 10-30px
+            snowflake.style.fontSize = size + 'px';
+            
+            // Scelta casuale del fiocco di neve
+            const snowflakes = ['❄', '✿', '❅', '✶'];
+            snowflake.innerHTML = snowflakes[Math.floor(Math.random() * snowflakes.length)];
+
+            document.body.appendChild(snowflake);
+
+            // Rimuovi il fiocco dopo l'animazione
+            snowflake.addEventListener('animationend', () => {
+                snowflake.remove();
+            });
+        }
+
+        // Crea fiocchi di neve ogni 200ms
+        setInterval(createSnowflake, 200);
+
+        const startButton = document.getElementById('startButton');
+        const content = document.querySelector('.content');
+        
+        // Modifico la funzione di inizio per usare il nuovo suono
+        startButton.onclick = function() {
+            // Nascondi il pulsante
+            startButton.classList.add('hidden');
+            
+            // Riproduci il suono e mostra subito il contenuto
+            playChristmasSound();
+            content.classList.add('visible');
+            document.getElementById('step1').classList.add('active');
+        };
+
+        let currentStep = 1;
+
+        function checkAnswer(step) {
+            const answer = document.getElementById(`answer${step}`).value.toLowerCase().trim();
+            const feedback = document.getElementById(`feedback${step}`);
+            
+            switch(step) {
+                case 1:
+                    if (answer === 't' || answer === 'lettera t' || answer === 'la t' || answer === 'la lettera t') {
+                        showSuccess(step);
+                    } else {
+                        feedback.textContent = "Mmm... non proprio. Prova ancora!";
+                    }
+                    break;
+                case 2:
+                    // 88 tasti / 4 + anno conoscenza (esempio con 2020)
+                    if (answer === "2042") { // 22 + 2020
+                        showSuccess(step);
+                    } else {
+                        feedback.textContent = "Non è questo il numero... Riprova!";
+                    }
+                    break;
+                case 3:
+                    if (answer.includes('tazza') || answer.includes('caffe') || answer.includes('sotto')) {
+                        showSuccess(step);
+                    } else {
+                        feedback.textContent = "Non è quello il posto giusto... Ripensa al caffè!";
+                    }
+                    break;
+                case 4:
+                    if (answer.includes('frigo') || answer.includes('freezer') || answer.includes('congelatore')) {
+                        feedback.innerHTML = "Congratulazioni! 🎉🎊 Hai completato la caccia al tesoro! Ora vai a cercare il tuo regalo nel freezer, dietro al gelato alla vaniglia!";
+                    } else {
+                        feedback.textContent = "Quasi... pensa a un posto molto freddo!";
+                    }
+                    break;
+            }
+        }
+
+        function showSuccess(step) {
+            const feedback = document.getElementById(`feedback${step}`);
+            feedback.innerHTML = "Corretto! <span class='success-emoji'>🎉</span>";
+            
+            setTimeout(() => {
+                document.getElementById(`step${step}`).classList.remove('active');
+                document.getElementById(`step${step + 1}`).classList.add('active');
+                document.getElementById('currentLevel').textContent = step + 1;
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
