@@ -19,6 +19,9 @@ body {
     font-family: 'Poppins', sans-serif;
     overflow-x: hidden;
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Overlay per la neve */
@@ -138,5 +141,69 @@ input:focus::after {
     
     .christmas-lights {
         height: 4px;
+    }
+}
+
+/* Media query per dispositivi mobili ottimizzate */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    .snowflake {
+        font-size: 12px;
+        opacity: 0.6; /* Riduci l'opacità per migliore visibilità */
+    }
+    
+    .christmas-lights {
+        height: 3px;
+        opacity: 0.5;
+    }
+
+    /* Migliora performance su mobile */
+    @keyframes fall {
+        from {
+            transform: translateY(-5vh) rotate(0deg);
+        }
+        to {
+            transform: translateY(105vh) rotate(180deg);
+        }
+    }
+
+    /* Riduci la frequenza dei fiocchi di neve */
+    .snowflake {
+        animation-duration: 2s !important;
+    }
+
+    /* Ottimizza il pattern di sfondo */
+    body::before {
+        background-size: 50px 50px;
+    }
+
+    @keyframes snowPattern {
+        from { background-position: 0 0; }
+        to { background-position: 50px 50px; }
+    }
+
+    /* Migliora la performance delle luci */
+    @keyframes twinkle {
+        from { opacity: 0.5; }
+        to { opacity: 0.8; }
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 375px) {
+    .snowflake {
+        font-size: 10px;
+    }
+    
+    .christmas-lights {
+        height: 2px;
+    }
+
+    /* Ulteriore ottimizzazione performance */
+    body::before {
+        background-size: 30px 30px;
     }
 }
