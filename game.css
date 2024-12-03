@@ -1,171 +1,17 @@
-        body {
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow-x: hidden;
-            position: relative; /* Aggiungo posizione relativa */
-        }
+/* Base styles */
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    position: relative;
+}
 
-        /* Mantieni solo gli stili specifici di questa pagina */
-        .content {
-            text-align: center;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 1s ease;
-            padding: 40px;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            border: 2px solid var(--christmas-red);
-            max-width: 90%;
-            width: 700px;
-            position: relative;
-            z-index: 10; /* Assicura che il contenuto sia sopra i fiocchi di neve */
-            overflow: hidden;
-        }
-
-        .content.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .step {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            font-size: 24px;
-            line-height: 1.6;
-            display: none;
-        }
-        
-        .step.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .input-container {
-            margin-top: 30px;
-        }
-        
-        input {
-            padding: 15px 20px;
-            font-size: 18px;
-            border: 2px solid var(--christmas-green);
-            border-radius: 10px;
-            margin-right: 10px;
-            width: 250px;
-            background: var(--snow-white);
-            transition: all 0.3s ease;
-        }
-
-        input:focus {
-            outline: none;
-            border-color: var(--christmas-red);
-            box-shadow: 0 0 10px rgba(212, 36, 38, 0.2);
-        }
-        
-        button {
-            padding: 15px 30px;
-            font-size: 18px;
-            background: var(--christmas-red);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: 'Mountains of Christmas', cursive;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        button:hover {
-            background: var(--christmas-green);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .feedback {
-            margin-top: 20px;
-            font-size: 18px;
-            min-height: 27px;
-            color: var(--christmas-green);
-            font-weight: 600;
-        }
-
-        .hidden {
-            display: none !important;
-        }
-        
-        /* Stile specifico per i fiocchi di neve */
-        .snowflake {
-            position: fixed; /* Uso fixed invece di absolute */
-            top: -50px; /* Punto di partenza sopra la viewport */
-            font-size: 20px;
-            color: white;
-            text-shadow: 0 0 5px rgba(255,255,255,0.5);
-            user-select: none;
-            z-index: 1; /* Sotto il contenuto principale */
-            pointer-events: none; /* Non interferisce con gli altri elementi */
-            animation: fall linear forwards;
-        }
-
-        @keyframes fall {
-            to {
-                transform: translateY(100vh);
-            }
-        }
-        
-        .progress {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            font-size: 16px;
-            color: #666;
-        }
-
-        @keyframes sparkle {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
-        }
-
-        .success-emoji {
-            display: inline-block;
-            animation: sparkle 0.5s ease infinite;
-        }
-        
-        #startButton {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            padding: 20px 40px;
-            font-size: 24px;
-            background: #333;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 1000;
-        }
-
-        .initial-white-screen {
+/* Initial white screen */
+.initial-white-screen {
     position: fixed;
     top: 0;
     left: 0;
@@ -176,144 +22,260 @@
     transition: opacity 1s ease;
 }
 
-/* Aggiungi questi stili per il mobile */
-@media (max-width: 768px) {
-            .content {
-                width: 95%;
-                padding: 20px;
-                margin: 10px;
-                font-size: 18px;
-            }
+/* Content box */
+.content {
+    text-align: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 1s ease;
+    padding: 40px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border: 2px solid var(--christmas-red);
+    max-width: 90%;
+    width: 700px;
+    position: relative;
+    z-index: 10;
+    overflow: hidden;
+}
 
-            input {
-                width: 100%;
-                margin: 10px 0;
-            }
+.content.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
 
-            button {
-                width: 100%;
-                margin-top: 10px;
-            }
-
-            .step {
-                font-size: 18px;
-                padding: 10px;
-            }
-
-            #startButton {
-                width: 80%;
-                font-size: 20px;
-            }
-
-            .progress {
-                top: 10px;
-                right: 10px;
-                font-size: 14px;
-            }
-
-            .input-container {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-            }
-        }
-
-body > *:not(.initial-white-screen) {
+/* Steps */
+.step {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    font-size: 24px;
+    line-height: 1.6;
     display: none;
 }
 
-body.loaded > *:not(.initial-white-screen) {
+.step.active {
     display: block;
+    animation: fadeIn 0.5s ease;
 }
-        
-        #startButton:hover {
-            background: #555;
-            transform: translate(-50%, -50%) scale(1.05);
-        }
 
+/* Text styles */
+.greeting {
+    font-family: 'Mountains of Christmas', cursive;
+    font-size: 2.5em;
+    color: var(--christmas-red);
+    margin-bottom: 1em;
+}
 
-/* Stili Mobile Ottimizzati */
-@media (max-width: 768px) {
-    body {
-        padding: 10px;
+.instruction {
+    font-size: 1.2em;
+    color: #333;
+    margin-bottom: 1.5em;
+}
+
+.riddle {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    font-size: 1.3em;
+    line-height: 1.8;
+    margin: 25px 0;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border-left: 5px solid var(--christmas-red);
+}
+
+/* Input and Buttons */
+.input-container {
+    margin: 30px auto;
+    width: 100%;
+    max-width: 500px;
+}
+
+input {
+    width: 100%;
+    padding: 15px 20px;
+    font-size: 18px;
+    border: 2px solid var(--christmas-green);
+    border-radius: 10px;
+    background: white;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--christmas-red);
+    box-shadow: 0 0 15px rgba(212, 36, 38, 0.2);
+}
+
+button {
+    width: 100%;
+    padding: 15px 30px;
+    font-size: 18px;
+    background: var(--christmas-red);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+button:hover {
+    background: var(--christmas-green);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+}
+
+/* Progress and feedback */
+.progress {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    font-size: 16px;
+    color: white;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 8px 15px;
+    border-radius: 20px;
+}
+
+.feedback {
+    margin-top: 20px;
+    font-size: 18px;
+    min-height: 27px;
+    color: var(--christmas-green);
+    font-weight: 600;
+}
+
+/* Base - Nascondere elementi */
+.hidden {
+    display: none !important;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+/* Neve - Animazione e stile migliorati */
+.snowflake {
+    position: fixed;
+    top: -50px;
+    left: calc(var(--snow-x, 0) * 1vw);  /* Posizionamento orizzontale dinamico */
+    font-size: calc(10px + 0.5vw);  /* Dimensione responsiva */
+    color: white;
+    text-shadow: 0 0 5px rgba(255,255,255,0.5);
+    user-select: none;
+    z-index: 1;
+    pointer-events: none;
+    animation: fall linear forwards;
+    animation-duration: calc(3s + var(--snow-speed, 0) * 2s);  /* Velocità variabile */
+}
+
+@keyframes fall {
+    to {
+        transform: 
+            translateY(100vh) 
+            rotate(calc(var(--snow-rotate, 0) * 360deg));  /* Rotazione casuale */
     }
+}
 
+/* Pulsante iniziale - Migliorata interattività e accessibilità */
+#startButton {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px 40px;
+    font-size: 24px;
+    background: var(--christmas-red);
+    color: white;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#startButton:hover {
+    background: var(--christmas-green);
+    transform: translate(-50%, -50%) scale(1.05);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+#startButton:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(255,255,255,0.5);
+}
+
+/* Animazione extra per il pulsante */
+@keyframes pulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(1.03); }
+}
+
+#startButton.pulse {
+    animation: pulse 1.5s infinite;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
     .content {
-        width: 100%;
-        max-width: 100%;
-        padding: 15px;
-        margin: 0;
-        border-radius: 15px;
+        width: 95%;
+        padding: 20px 15px;
     }
 
     .step {
         font-size: 16px;
-        padding: 10px 5px;
-        line-height: 1.4;
+        padding: 10px;
     }
 
-    .input-container {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        width: 100%;
-        padding: 0 10px;
+    .riddle {
+        font-size: 1.1em;
+        padding: 15px;
+        line-height: 1.5;
     }
 
-    input {
-        width: 100%;
-        margin: 0;
-        padding: 12px 15px;
+    .greeting {
+        font-size: 2em;
+    }
+
+    input, button {
         font-size: 16px;
-    }
-
-    button {
-        width: 100%;
-        padding: 12px 20px;
-        font-size: 16px;
-        margin: 5px 0;
+        padding: 12px;
     }
 
     #startButton {
-        width: 90%;
-        max-width: 300px;
-        font-size: 18px;
+        width: 80%;
+        font-size: 20px;
         padding: 15px;
     }
 
     .progress {
-        top: 5px;
-        right: 5px;
+        top: 10px;
+        right: 10px;
         font-size: 14px;
-        padding: 5px 10px;
-        background: rgba(255, 255, 255, 0.9);
-        border-radius: 15px;
     }
 
     .feedback {
         font-size: 16px;
-        padding: 10px;
-    }
-
-    /* Migliora la leggibilità del testo */
-    br {
-        display: none;  /* Rimuove i break di riga per un layout più compatto */
-    }
-
-    /* Riduci animazioni per performance */
-    .snowflake {
-        font-size: 16px;
-    }
-
-    /* Gestione touch migliorata */
-    button, input {
-        -webkit-tap-highlight-color: transparent;
-        touch-action: manipulation;
-    }
-
-    /* Previeni zoom su input */
-    input {
-        font-size: 16px !important;
     }
 }
 
@@ -327,64 +289,8 @@ body.loaded > *:not(.initial-white-screen) {
         font-size: 14px;
     }
 
-    button {
-        padding: 10px 15px;
+    input, button {
         font-size: 14px;
-    }
-
-    #startButton {
-        width: 95%;
-        font-size: 16px;
-    }
-}
-
-.greeting {
-    font-family: 'Mountains of Christmas', cursive;
-    font-size: 2.5em;
-    color: var(--christmas-red);
-    margin-bottom: 1em;
-}
-
-.success-header {
-    font-family: 'Mountains of Christmas', cursive;
-    font-size: 2em;
-    color: var(--christmas-green);
-    margin-bottom: 0.5em;
-}
-
-.instruction {
-    font-size: 1.2em;
-    color: #333;
-    margin-bottom: 1.5em;
-}
-
-.riddle {
-    background: rgba(255,255,255,0.9);
-    padding: 20px;
-    border-radius: 10px;
-    font-size: 1.3em;
-    line-height: 1.8;
-    margin: 20px 0;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    border-left: 4px solid var(--christmas-red);
-}
-
-@media (max-width: 768px) {
-    .greeting {
-        font-size: 2em;
-    }
-
-    .success-header {
-        font-size: 1.7em;
-    }
-
-    .instruction {
-        font-size: 1.1em;
-    }
-
-    .riddle {
-        font-size: 1.1em;
-        padding: 15px;
-        line-height: 1.6;
+        padding: 10px;
     }
 }
