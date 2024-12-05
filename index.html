@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎁</title>
+    <title>🎄 Caccia al Tesoro di Natale 🎁</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="christmas-theme.css">
     <link rel="stylesheet" href="game.css">
 </head>
@@ -15,14 +18,15 @@
         <div class="content">
             <!-- Step 1 -->
             <div class="step" id="step1">
-                <h1 class="greeting">Ciao Ericuccia</h1>
-                <p class="instruction">Per iniziare, risolvi questo indovinello:</p>
-                <div class="riddle">
-                    Sono nelle stelle ma non nel sole,<br>
-                    Sono nel cuore ma non nell'amore,<br>
-                    Sono nel tempo ma non nelle ore.<br>
-                    <strong>Cosa sono?</strong>
-                </div>
+              <h1 class="greeting">Ciao Ericuccia ❤️</h1>
+              <p class="instruction">Inizia la tua caccia al regalo con questo indovinello:</p>
+              <div class="riddle">
+                  Di mattina borbotto e sbuffo,<br>
+                  Nero caffè io preparo,<br>
+                  Sul fornello mi riscaldo,<br>
+                  E di energia ti riempio.<br>
+                  <strong>Chi sono?</strong>
+              </div>
                 <div class="input-container">
                     <input type="text" id="answer1" placeholder="La tua risposta...">
                     <button onclick="checkAnswer(1)">Verifica</button>
@@ -31,30 +35,34 @@
             </div>
 
             <!-- Step 2 -->
-            <div class="step" id="step2">
-                <h2 class="success-header">Ottimo!</h2>
-                <p class="instruction">Ora per il secondo indizio...</p>
-                <div class="riddle">
-                    Se il numero di tasti in un pianoforte dividi per 4,<br>
-                    e poi aggiungi l'anno in cui ci siamo conosciuti,<br>
-                    otterrai il numero che ti serve per proseguire.
-                </div>
-                <div class="input-container">
-                    <input type="number" id="answer2" placeholder="Numero...">
-                    <button onclick="checkAnswer(2)">Verifica</button>
-                </div>
-                <div class="feedback" id="feedback2"></div>
-            </div>
+<div class="step" id="step2">
+  <h2 class="success-header">Ottimo! ❤️</h2>
+  <p class="instruction">Hai trovato il primo bigliettino! Ora...</p>
+  <div class="riddle">
+      Sempre in coppia noi viviamo,<br>
+      Ti portiamo dove vuoi,<br>
+      Lacci stretti ci leghiamo,<br>
+      E con te camminiamo.<br>
+      <strong>Cosa siamo?</strong>
+  </div>
+  <div class="input-container">
+      <input type="text" id="answer2" placeholder="La tua risposta...">
+      <button onclick="checkAnswer(2)">Verifica</button>
+  </div>
+  <div class="feedback" id="feedback2"></div>
+</div>
 
             <!-- Step 3 -->
             <div class="step" id="step3">
-                <h2 class="success-header">Perfetto!</h2>
-                <p class="instruction">Ora guarda attentamente...</p>
-                <div class="riddle">
-                    Il tuo prossimo indizio si nasconde dove<br>
-                    ogni mattina la caffeina ti dà il buongiorno,<br>
-                    ma cerca sotto, non dentro!
-                </div>
+              <h2 class="success-header">Perfetto! 💖</h2>
+              <p class="instruction">Secondo bigliettino trovato! Prosegui con...</p>
+              <div class="riddle">
+                  Son di vetro o di plastica,<br>
+                  Sulla tavola mi metto,<br>
+                  Acqua fresca contengo,<br>
+                  E la sete ti disseto.<br>
+                  <strong>Cosa sono?</strong>
+              </div>
                 <div class="input-container">
                     <input type="text" id="answer3" placeholder="Dove devi cercare?">
                     <button onclick="checkAnswer(3)">Verifica</button>
@@ -64,14 +72,15 @@
 
             <!-- Step 4 -->
             <div class="step" id="step4">
-                <h2 class="success-header">Ci siamo quasi!</h2>
-                <p class="instruction">Ultimo indovinello:</p>
-                <div class="riddle">
-                    In questo luogo il freddo regna sovrano,<br>
-                    ma i tuoi spuntini preferiti trovano riparo.<br>
-                    Cerca dietro al gelato alla vaniglia,<br>
-                    e il tuo regalo finalmente vedrai!
-                </div>
+              <h2 class="success-header">Ci siamo quasi! 🤗</h2>
+              <p class="instruction">Ultimo indovinello...</p>
+              <div class="riddle">
+                  In cucina regno sovrano,<br>
+                  Il freddo è il mio elemento,<br>
+                  Cibi e bevande conservo,<br>
+                  E di snack sono contento!<br>
+                  <strong>Cosa sono?</strong>
+              </div>
                 <div class="input-container">
                     <input type="text" id="answer4" placeholder="Il luogo finale...">
                     <button onclick="checkAnswer(4)">Verifica</button>
@@ -80,7 +89,22 @@
             </div>
         </div>
     </div>
-    <script src="christmas-theme.js"></script>
-    <script src="game.js"></script>
+    <script src="christmas-theme-new.js"></script>
+<script src="game-new.js"></script>
+    <script src="audio.js"></script>
+    <script>
+        let audioController;
+        document.addEventListener('DOMContentLoaded', () => {
+            audioController = new AudioController();
+            
+            // Aggiungi l'evento click al pulsante di inizio
+            const startButton = document.getElementById('startButton');
+            if (startButton) {
+                startButton.addEventListener('click', () => {
+                    audioController.playMusic();
+                });
+            }
+        });
+    </script>
 </body>
 </html>

@@ -1,4 +1,16 @@
+/* Variables */
+:root {
+    --christmas-red: #d42426;
+    --christmas-green: #146b3a;
+}
+
 /* Base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -8,6 +20,9 @@ body {
     align-items: center;
     overflow-x: hidden;
     position: relative;
+    font-family: Arial, sans-serif;
+    color: #333;
+    line-height: 1.6;
 }
 
 /* Initial white screen */
@@ -60,9 +75,88 @@ body {
     animation: fadeIn 0.5s ease;
 }
 
+.step-content {
+    text-align: center;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.step-title {
+    color: var(--christmas-red);
+    font-family: 'Mountains of Christmas', cursive, Arial, sans-serif;
+    font-size: 32px;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.riddle {
+    font-size: 18px;
+    line-height: 1.6;
+    margin: 20px 0;
+    color: #333;
+}
+
+.answer-section {
+    margin-top: 20px;
+}
+
+.answer-label {
+    font-family: 'Mountains of Christmas', cursive, Arial, sans-serif;
+    font-size: 24px;
+    color: var(--christmas-green);
+    display: block;
+    margin-bottom: 10px;
+}
+
+#answer-input {
+    padding: 12px;
+    font-size: 16px;
+    border: 2px solid var(--christmas-green);
+    border-radius: 8px;
+    width: 80%;
+    max-width: 300px;
+    margin-bottom: 15px;
+}
+
+#submit-btn {
+    font-family: 'Mountains of Christmas', cursive, Arial, sans-serif;
+    font-size: 22px;
+    padding: 12px 30px;
+    background-color: var(--christmas-red);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#submit-btn:hover {
+    background-color: #c41e3a;
+    transform: scale(1.05);
+}
+
+#feedback {
+    font-family: 'Mountains of Christmas', cursive, Arial, sans-serif;
+    font-size: 24px;
+    margin-top: 15px;
+    color: var(--christmas-red);
+    min-height: 30px;
+}
+
+.success-message {
+    font-family: 'Mountains of Christmas', cursive, Arial, sans-serif;
+    color: var(--christmas-green);
+    font-size: 26px;
+    margin-top: 20px;
+    animation: bounce 0.5s ease;
+}
+
 /* Text styles */
 .greeting {
-    font-family: 'Mountains of Christmas', cursive;
+    font-family: 'Mountains of Christmas', cursive, Arial, sans-serif;
     font-size: 2.5em;
     color: var(--christmas-red);
     margin-bottom: 1em;
@@ -74,20 +168,9 @@ body {
     margin-bottom: 1.5em;
 }
 
-.riddle {
-    background: white;
-    padding: 25px;
-    border-radius: 15px;
-    font-size: 1.3em;
-    line-height: 1.8;
-    margin: 25px 0;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    border-left: 5px solid var(--christmas-red);
-}
-
 /* Input and Buttons */
 .input-container {
-    margin: 30px auto;
+    margin: 25px auto;
     width: 100%;
     max-width: 500px;
 }
@@ -129,6 +212,31 @@ button:hover {
     background: var(--christmas-green);
     transform: translateY(-2px);
     box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+}
+
+.start-button, #start-game {
+    font-family: 'Mountains of Christmas', cursive, Arial, sans-serif;
+    font-size: 26px;
+    padding: 15px 40px;
+    background-color: var(--christmas-red);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 20px auto;
+    display: block;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.start-button:hover, #start-game:hover {
+    background-color: #c41e3a;
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.start-button:active, #start-game:active {
+    transform: scale(0.98);
 }
 
 /* Progress and feedback */
@@ -235,6 +343,11 @@ button:hover {
     }
 }
 
+/* Audio Button */
+.audio-button {
+    display: none;
+}
+
 /* Mobile styles */
 @media (max-width: 768px) {
     .content {
@@ -292,5 +405,109 @@ button:hover {
     input, button {
         font-size: 14px;
         padding: 10px;
+    }
+}
+
+/* Font Natalizio */
+@font-face {
+    font-family: 'Mountains of Christmas';
+    src: url('https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@400;700&display=swap');
+}
+
+/* Stili per il popup */
+.success-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease;
+    font-family: 'Mountains of Christmas', cursive, Arial, sans-serif;
+}
+
+.popup-content {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+    animation: slideIn 0.3s ease;
+}
+
+.popup-content h2 {
+    color: var(--christmas-red);
+    font-size: 28px;
+    margin-bottom: 15px;
+    font-family: 'Mountains of Christmas', cursive, Arial, sans-serif;
+    font-weight: 700;
+}
+
+.popup-content p {
+    color: #333;
+    font-size: 22px;
+    margin: 15px 0;
+    line-height: 1.4;
+    font-family: 'Mountains of Christmas', cursive, Arial, sans-serif;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 4px;
+    background: #eee;
+    margin: 20px 0 10px;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.progress-bar::after {
+    content: '';
+    display: block;
+    height: 100%;
+    width: 100%;
+    background: var(--christmas-green);
+    animation: progress 3s linear;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes progress {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .popup-content {
+        width: 85%;
+        padding: 20px;
+    }
+    
+    .popup-content h2 {
+        font-size: 20px;
+    }
+    
+    .popup-content p {
+        font-size: 16px;
     }
 }
